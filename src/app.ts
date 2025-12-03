@@ -1,6 +1,8 @@
 import express, { Request, Response } from "express";
 import initDB from "./config/DB";
 import { userRouter } from "./modules/register/register.routes";
+import { loginRouter } from "./modules/login/login.routes";
+import auth from "./middleware/auth/auth";
 
 const app = express();
 
@@ -18,7 +20,8 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // Routes:
-app.use("/users", userRouter);
+app.use("/auth", userRouter);
+app.use("/login", loginRouter);
 
 // 404 eroor
 app.use((req: Request, res: Response) => {
