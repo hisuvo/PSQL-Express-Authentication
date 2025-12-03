@@ -12,10 +12,11 @@ app.use(express.json());
 // DB
 initDB();
 
-app.get("/", (req: Request, res: Response) => {
+app.get("/", auth(), (req: Request, res: Response) => {
   res.status(200).json({
     title: "Athentication Flow Server",
     author: "Develop By Suvo Data",
+    user: req.user,
   });
 });
 
