@@ -7,9 +7,16 @@ const auth = () => {
     try {
       const token = req.headers.authorization;
 
-      const decoded = jwt.verify(token!, config.privateKey!) as JwtPayload;
+      if (!token) {
+        throw new Error("You are authothorized");
+      }
 
-      res.user = decoded;
+      let decoded = jwt.verify(
+        token,
+        config.privateKey as string
+      ) as JwtPayload;
+
+      req.user = decoded;
 
       next();
     } catch (error: any) {
